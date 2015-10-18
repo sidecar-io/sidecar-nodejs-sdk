@@ -1,0 +1,12 @@
+
+<div class='container'>
+  <div class='row'>
+    <br />
+    <p><a href='/'>Home</a><p>
+    <p>ID: <%= user.id %></p>
+    <p>Username: <%= user.username %></p>
+    <p>Name: <%= user.displayName %></p>
+    <p>Email: <%= user.emails[0].value %></p>
+    <p><img alt="image" class="img-circle" src="<%= user.avatar_url %>" width="150" height="150" /></p>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "AuthApp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.12.4",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "ejs": "^2.3.4",
+    "express": "~4.12.4",
+    "express-partials": "^0.3.0",
+    "express-session": "^1.11.3",
+    "jade": "~1.9.2",
+    "method-override": "^2.3.5",
+    "morgan": "~1.5.3",
+    "node-uuid": "^1.4.3",
+    "passport": "^0.3.0",
+    "passport-github2": "^0.1.9",
+    "serve-favicon": "~2.2.1"
+  }
+}
