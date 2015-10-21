@@ -1,2 +1,2 @@
 # sidecar-nodejs-sdk
-A JavaScript Node Sidecar SDK
+A JavaScript Node Sidecar SDK 
