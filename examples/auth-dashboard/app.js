@@ -6,13 +6,14 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var GitHubStrategy = require('passport-github2').Strategy;
 var partials = require('express-partials');
-
-var sidecar = require('../../lib/api');
 var uuid = require('node-uuid');
 
+var sidecar = require('../../lib/api');
+var configuration = require('../../lib/configure');
 
-var GITHUB_CLIENT_ID = "";
-var GITHUB_CLIENT_SECRET = "";
+var GITHUB_CLIENT_ID = configuration.developerKeys.githubClientID;
+var GITHUB_CLIENT_SECRET = configuration.developerKeys.githubClientSecret;
+var GITHUB_CALLBACK_URL = configuration.developerKeys.callbackURL;
 
 var consoleCode;
 var currentTimeQuery= new Date().toISOString();
@@ -53,7 +54,7 @@ function publishEvent(){
   sensorData = Math.floor((Math.random() * 39) + 25);
   var data = {
     id: userUuid,
-    deviceId: '8f80e970-6b57-11e4-9803-0800200c9a66',
+    deviceId: sidecar.getDeviceId(),
     ts: currentTimePublish,
     stream: 'sensors-stream',
     readings:[
@@ -159,7 +160,6 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-
 // Use the GitHubStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
@@ -167,7 +167,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: GITHUB_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -241,8 +241,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(3000);
-
+app.listen(80);
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
