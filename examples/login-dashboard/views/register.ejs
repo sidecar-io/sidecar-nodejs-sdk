@@ -1,0 +1,93 @@
+<body class="gray-bg">
+  <div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+          <h1 class="logo-name"><img src="img/sidecar_logo.png" width="80%" height="80%"/></h1>
+        </div>
+        <h3>Register to Node.js demo app</h3>
+        <p>Create account to see it in action.</p>
+        <form class="m-t" role="form" action="/register" method="post">
+          <% if (invalidRegister) { %>
+          <fieldset>
+             <div class="alert alert-warning">
+               <strong> <%= errorMessage %> </strong>
+             </div>
+           </fieldset>
+           <% } %>
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Email" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required="">
+            </div>
+            <div class="form-group">
+              <div class="checkbox i-checks">
+                <label>
+                  <input type="checkbox" id="checky"><a href="#" data-toggle="modal" data-target="#termsModal">I agree to terms and conditions</a>
+                </label>
+              </div>
+            </div>
+            <button type="submit" disabled id="postme" class="btn btn-primary block full-width m-b">Register</button>
+            <p class="text-muted text-center"><small>Already have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="/">Login</a>
+        </form>
+        <p class="m-t"> <small>Sidecar.io &copy; 2015</small> </p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Terms of Service</h4>
+      </div>
+        <div class="modal-body">
+            <p>By using the Sidecar.io web site ("Service"), or any services of QSense, Inc. ("Qsense"), you are agreeing to be bound by the following terms and conditions ("Terms of Service"). IF YOU ARE ENTERING INTO THIS AGREEMENT ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY, YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO BIND SUCH ENTITY, ITS AFFILIATES AND ALL USERS WHO ACCESS OUR SERVICES THROUGH YOUR ACCOUNT TO THESE TERMS AND CONDITIONS, IN WHICH CASE THE TERMS "YOU" OR "YOUR" SHALL REFER TO SUCH ENTITY, ITS AFFILIATES AND USERS ASSOCIATED WITH IT. IF YOU DO NOT HAVE SUCH AUTHORITY, OR IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, YOU MUST NOT ACCEPT THIS AGREEMENT AND MAY NOT USE THE SERVICES.
+            </p>
+            <p>
+            Please note that if you are accessing any Sidecar service in your capacity as a government entity, there are special terms that may apply to you.
+            </p>
+            <p>
+            If Qsense makes material changes to these Terms, we will notify you by email or by posting a notice on our site before the changes are effective. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms of Service. Continued use of the Service after any such changes shall constitute your consent to such changes. You can review the most current version of the Terms of Service at any time at: http://www.sidecar.io/terms
+            </p>
+            <p>
+            Violation of any of the terms below will result in the termination of your Account. While Qsense prohibits such conduct and Content on the Service, you understand and agree that Qsense cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.
+            </p>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- iCheck -->
+<!-- <script src="js/plugins/iCheck/icheck.min.js"></script> -->
+<script>
+    $(document).ready(function(){
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+
+<script type='text/javascript'>//<![CDATA[
+$('#checky').click(function(){
+
+    if($(this).prop('checked')){
+         $('#postme').removeAttr('disabled');
+    }
+    else {
+        $('#postme').attr("disabled","disabled");
+
+    }
+});//]]>
+
+</script>

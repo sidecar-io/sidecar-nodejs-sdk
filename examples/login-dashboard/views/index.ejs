@@ -1,0 +1,696 @@
+<% if (!user) { %>
+
+  <body class="gray-bg">
+
+  <div class="middle-box text-center loginscreen animated fadeInDow">
+      <div>
+        <h1 class="logo-name"><img src="img/sidecar_logo.png" width="80%" height="80%"/></h1>
+      </div>
+      <div>
+          <h2>Welcome to Sidecar</h2>
+          <p>Login to your dashboard</p>
+          <font color="#eeeeee"><p>node-app</p></font>
+          <form class="m-t" role="form" action="/login"  method="post">
+            <% if (invalidUser) { %>
+            <fieldset>
+               <div class="alert alert-warning">
+                 <strong> <%= errorMessage %> </strong>
+               </div>
+             </fieldset>
+             <% } %>
+            <div class="form-group">
+                <input type="email" class="form-control" name="username" placeholder="Username" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required="">
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+            <!--<a href="#"><small>Forgot password?</small></a>-->
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="/register">Create an account</a>
+          </form>
+          <p class="m-t"> <small>Sidecar.io &copy; 2015</small> </p>
+          <br />
+      </div>
+  </div>
+
+	<!-- Mainly scripts -->
+	<script src="js/jquery-2.1.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+<% } else { %>
+
+<body>
+	<div id="wrapper">
+	    <nav class="navbar-default navbar-static-side" role="navigation">
+	        <div class="sidebar-collapse">
+	            <ul class="nav metismenu" id="side-menu">
+	                <li class="nav-header">
+	                    <div class="dropdown profile-element"> <span>
+	                            <!--<img alt="image" class="img-circle" src="<%= user.avatar_url %>" width="150" height="150" />-->
+                              <img alt="image" class="img-circle" src="/img/profile_small.jpg" width="150" height="150" />
+	                             </span>
+	                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= user.username %></strong>
+															</span> <span class="text-muted text-xs block"> My Account <b class="caret"></b></span> </span> </a>
+	                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                              <% if (isAdminUser) { %>
+                              <li><a href="/admin-dashboard">Go to Admin Panel</a></li>
+                              <% } %>
+	                            <!--<li><a href="#">Profile</a></li>
+	                            <li><a href="#">Contacts</a></li>
+	                            <li><a href="#">Mailbox</a></li>-->
+	                            <li class="divider"></li>
+	                            <li><a href="/logout">Logout</a></li>
+	                        </ul>
+	                    </div>
+	                    <div class="logo-element">
+	                        SC+
+	                    </div>
+	                </li>
+	                <li class="active">
+	                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+	                    <ul class="nav nav-second-level collapse">
+	                        <li class="active"><a href="#">Node.js App</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
+
+	    </nav>
+
+	    <div id="page-wrapper" class="gray-bg">
+	        <div class="row border-bottom">
+	        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+	        <div class="navbar-header">
+	            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+	            <form role="search" class="navbar-form-custom" action="search_results.html">
+	                <!--<div class="form-group">
+	                    <input type="text" placeholder="Search data streams" class="form-control" name="top-search" id="top-search">
+	                </div>-->
+	            </form>
+	        </div>
+	              <ul class="nav navbar-top-links navbar-right">
+	                <li>
+	                    <span class="m-r-sm text-muted welcome-message">Welcome to Sidecar, <%= user.username %> </span>
+	                </li>
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-messages">
+	                        <li>
+	                            <div class="dropdown-messages-box">
+	                                <a href="#" class="pull-left">
+	                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+	                                </a>
+	                                <div>
+	                                    <small class="pull-right">46h ago</small>
+	                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+	                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <div class="dropdown-messages-box">
+	                                <a href="#" class="pull-left">
+	                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+	                                </a>
+	                                <div>
+	                                    <small class="pull-right text-navy">5h ago</small>
+	                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+	                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <div class="dropdown-messages-box">
+	                                <a href="#" class="pull-left">
+	                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+	                                </a>
+	                                <div>
+	                                    <small class="pull-right">23h ago</small>
+	                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+	                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <div class="text-center link-block">
+	                                <a href="#">
+	                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+	                                </a>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-alerts">
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+	                                    <span class="pull-right text-muted small">12 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="#">
+	                                <div>
+	                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+	                                    <span class="pull-right text-muted small">4 minutes ago</span>
+	                                </div>
+	                            </a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <div class="text-center link-block">
+	                                <a href="#">
+	                                    <strong>See All Alerts</strong>
+	                                    <i class="fa fa-angle-right"></i>
+	                                </a>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </li>
+                  <% if (isAdminUser) { %>
+                    <li>
+                        <a href="/admin-dashboard">
+                            <i class="fa fa-magic"></i> Go to Admin Panel
+                        </a>
+                    </li>
+                  <% } %>
+	                <li>
+	                    <a href="/logout">
+	                        <i class="fa fa-sign-out"></i> Log out
+	                    </a>
+	                </li>
+	            </ul>
+
+	        </nav>
+	        </div>
+
+	        <div class="row wrapper border-bottom white-bg page-heading">
+	            <div class="col-lg-10">
+	                <!--<h2>Sidecar / Node.js - Dashboard</h2>-->
+									<br />
+									<img src="img/sidecar_logo.png" width="20%" height="20%"/>
+	            </div>
+	        </div>
+
+	        <div class="wrapper wrapper-content animated fadeInRight">
+
+	            <% if (panel[0].enable == 'true'){ %>
+              <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="ibox float-e-margins">
+	                        <div class="ibox-title">
+	                            <h5><%= panel[0].panelName %> </h5>
+	                            <div class="ibox-tools">
+	                                <a class="collapse-link">
+	                                    <i class="fa fa-chevron-up"></i>
+	                                </a>
+	                            </div>
+	                        </div>
+	                        <div class="ibox-content">
+                              <h5><%= panel[0].variable1 %> </h5>
+	                            <div class="flot-chart">
+	                                <div class="flot-chart-content" id="panel1graph1"></div>
+	                            </div>
+                              <h5><%= panel[0].variable2 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel1graph2"></div>
+                              </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+              <% } %>
+
+
+              <% if (panel[1].enable == 'true'){ %>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              <h5><%= panel[1].panelName %> </h5>
+                              <div class="ibox-tools">
+                                  <a class="collapse-link">
+                                      <i class="fa fa-chevron-up"></i>
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="ibox-content">
+                              <h5><%= panel[1].variable1 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel2graph1"></div>
+                              </div>
+                              <h5><%= panel[1].variable2 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel2graph2"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <% } %>
+
+
+              <% if (panel[2].enable == 'true'){ %>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              <h5><%= panel[2].panelName %> </h5>
+                              <div class="ibox-tools">
+                                  <a class="collapse-link">
+                                      <i class="fa fa-chevron-up"></i>
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="ibox-content">
+                              <h5><%= panel[2].variable1 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel3graph1"></div>
+                              </div>
+                              <h5><%= panel[2].variable2 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel3graph2"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <% } %>
+
+
+              <% if (panel[3].enable == 'true'){ %>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              <h5><%= panel[3].panelName %> </h5>
+                              <div class="ibox-tools">
+                                  <a class="collapse-link">
+                                      <i class="fa fa-chevron-up"></i>
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="ibox-content">
+                              <h5><%= panel[3].variable1 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel4graph1"></div>
+                              </div>
+                              <h5><%= panel[3].variable2 %> </h5>
+                              <div class="flot-chart">
+                                  <div class="flot-chart-content" id="panel4graph2"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <% } %>
+
+	        </div>
+
+	        <div class="footer">
+	            <div class="pull-right">
+	                <span class="m-t"> <small>Sidecar.io &copy; 2015</small> </span>
+	            </div>
+	        </div>
+
+	    </div>
+	</div>
+
+	    <!-- Mainly scripts -->
+	    <script src="js/jquery-2.1.1.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+	    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+	    <!-- Flot -->
+	    <script src="js/plugins/flot/jquery.flot.js"></script>
+	    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+	    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+	    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+	    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+	    <!-- CodeMirror -->
+	    <script src="js/plugins/codemirror/codemirror.js"></script>
+	    <script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+	    <!-- Custom and plugin javascript -->
+	    <script src="js/inspinia.js"></script>
+	    <!--
+	    <script src="js/plugins/pace/pace.min.js"></script>
+	    -->
+
+	    <script type="text/javascript">
+
+
+
+	      /*
+        var sensorData;
+        function load_content(){
+	          $.get("/getdata", function(data1){
+	              sensorData = data1;
+	              load_content();
+	          });
+	      }
+	      load_content();
+        */
+
+	      var container1 = $("#panel1graph1");
+        var container2 = $("#panel1graph2");
+
+        var container3 = $("#panel2graph1");
+        var container4 = $("#panel2graph2");
+
+        var container5 = $("#panel3graph1");
+        var container6 = $("#panel3graph2");
+
+        var container7 = $("#panel4graph1");
+        var container8 = $("#panel4graph2");
+
+	      // Determine how many data points to keep based on the placeholder's initial size;
+	      // this gives us a nice high-res plot while avoiding more than one point per pixel.
+	      //var maximum = container.outerWidth() / 2 || 300;
+        var maximum = 20;
+
+        //var data = [];
+        var data1 = [];
+        var data2 = [];
+
+        var data3 = [];
+        var data4 = [];
+
+        var data5 = [];
+        var data6 = [];
+
+        var data7 = [];
+        var data8 = [];
+
+
+        function getSensorData(data) {
+          if (data.length) { data = data.slice(1); }
+          while (data.length < maximum) {
+              var previous = data.length ? data[data.length - 1] : 50;
+              //var y =  Number(sensorData);
+              var y = previous + Math.random() * 10 - 5;
+              data.push(y < 0 ? 0 : y > 100 ? 100 : y);
+          }
+          return data;
+        }
+
+	      function scrollData(data) {
+            // zip the generated y values with the x values
+	          var res = [];
+	          for (var i = 0; i < data.length; ++i) { res.push([i, data[i]]) }
+	          return res;
+	      }
+
+
+        data1 = getSensorData(data1);
+        var series1 = [{
+            data: scrollData(data1),
+            lines: {
+                show: <%= panel[0].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[0].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+        data2 = getSensorData(data2);
+        var series2 = [{
+            data: scrollData(data2),
+            lines: {
+                show: <%= panel[0].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[0].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+
+
+        data3 = getSensorData(data3);
+        var series3 = [{
+            data: scrollData(data3),
+            lines: {
+                show: <%= panel[1].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[1].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+        data4 = getSensorData(data4);
+        var series4 = [{
+            data: scrollData(data4),
+            lines: {
+                show: <%= panel[1].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[1].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+
+        data5 = getSensorData(data5);
+        var series5 = [{
+            data: scrollData(data5),
+            lines: {
+                show: <%= panel[2].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[2].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+        data6 = getSensorData(data6);
+        var series6 = [{
+            data: scrollData(data6),
+            lines: {
+                show: <%= panel[2].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[2].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+
+
+        data7 = getSensorData(data7);
+        var series7 = [{
+            data: scrollData(data7),
+            lines: {
+                show: <%= panel[3].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[3].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+        data8 = getSensorData(data8);
+        var series8 = [{
+            data: scrollData(data8),
+            lines: {
+                show: <%= panel[3].lineEnable %>,
+                fill: true
+            },
+            bars: {
+                show: <%= panel[3].barEnable %>,
+                barWidth: 0.6,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.8
+                    }, {
+                        opacity: 0.8
+                    }]
+                }
+            }
+        }];
+
+
+        function plot(container,series) {
+          var plot = $.plot(container, series, {
+              grid: {
+
+                  color: "#999999",
+                  tickColor: "#D4D4D4",
+                  borderWidth:0,
+                  minBorderMargin: 20,
+                  labelMargin: 10,
+                  backgroundColor: {
+                      colors: ["#ffffff", "#ffffff"]
+                  },
+                  margin: {
+                      top: 8,
+                      bottom: 20,
+                      left: 20
+                  },
+                  markings: function(axes) {
+                      var markings = [];
+                      var xaxis = axes.xaxis;
+                      for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                          markings.push({
+                              xaxis: {
+                                  from: x,
+                                  to: x + xaxis.tickSize
+                              },
+                              color: "#fff"
+                          });
+                      }
+                      return markings;
+                  }
+              },
+              colors: ["#1c84c6"],
+              xaxis: {
+                  tickFormatter: function() {
+                      return "";
+                  }
+              },
+              yaxis: {
+                  min: 0,
+                  max: 100
+              },
+              legend: {
+                  show: true
+              }
+          });
+        }
+
+	      // Update the random dataset at 25FPS for a smoothly-animating chart
+	      setInterval(function updateSensorData() {
+            <% if (panel[0].enable == 'true'){ %>
+              data1 = getSensorData(data1);
+  	          series1[0].data = scrollData(data1);
+              plot(container1,series1);
+
+              data2 = getSensorData(data2);
+              series2[0].data = scrollData(data2);
+              plot(container2,series2);
+            <% } %>
+            <% if (panel[1].enable == 'true'){ %>
+              data3 = getSensorData(data3);
+              series3[0].data = scrollData(data3);
+              plot(container3,series3);
+
+              data4 = getSensorData(data4);
+              series4[0].data = scrollData(data4);
+              plot(container4,series4);
+            <% } %>
+            <% if (panel[2].enable == 'true'){ %>
+              data5 = getSensorData(data5);
+              series5[0].data = scrollData(data5);
+              plot(container5,series5);
+
+              data6 = getSensorData(data6);
+              series6[0].data = scrollData(data6);
+              plot(container6,series6);
+            <% } %>
+            <% if (panel[3].enable == 'true'){ %>
+              data7 = getSensorData(data7);
+              series7[0].data = scrollData(data7);
+              plot(container7,series7);
+
+              data8 = getSensorData(data8);
+              series8[0].data = scrollData(data8);
+              plot(container8,series8);
+            <% } %>
+	      }, 40);
+
+	      //setInterval(function updateSensorData() {
+
+	      //}, 1000)
+	    </script>
+<% } %>

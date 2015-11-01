@@ -20,7 +20,7 @@
   "author": "Sidecar",
   "license": [
     {
-      "type": "Custom",
+      "type": "Apache v2.0",
       "url": "https://github.com/sidecar-io/sidecar-nodejs-sdk/blob/master/LICENSE"
     }
   ],

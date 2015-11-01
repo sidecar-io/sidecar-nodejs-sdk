@@ -1,0 +1,45 @@
+<body class="gray-bg">
+  
+<div class="middle-box text-center loginscreen  animated fadeInDown ">
+  <div>
+      <div>
+        <h1 class="logo-name"><img src="img/sidecar_logo.png" width="80%" height="80%"/></h1>
+      </div>
+    </div>
+</div>
+
+<div class="row black-bg">
+  <div class="middle-box text-center loginscreen  animated fadeInDown ">
+      <div>
+        <h3><font color='cccccc'>Admin Dashboard</font></h3>
+        <form class="m-t" role="form" action="/admin" method="post">
+          <% if (invalidAdmin) { %>
+          <fieldset>
+             <div class="alert alert-warning">
+               <strong> <%= errorAdminMessage %> </strong>
+             </div>
+           </fieldset>
+           <% } %>
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required="">
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+        </form>
+        <br />
+        <br />
+      </div>
+  </div>
+</div>
+
+<div class="row gray-bg">
+  <div class="middle-box text-center loginscreen  animated fadeInDown ">
+    <p class="m-t"> <small>Sidecar.io &copy; 2015</small> </p>
+  </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>

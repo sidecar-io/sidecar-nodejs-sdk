@@ -1,0 +1,563 @@
+
+<% if (isAdminUser) { %>
+  <link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+   <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+  <body>
+  	<div id="wrapper">
+
+  	    <nav class="navbar-default navbar-static-side" role="navigation">
+  	        <div class="sidebar-collapse">
+  	            <ul class="nav metismenu" id="side-menu">
+  	                <li class="nav-header">
+  	                    <div class="dropdown profile-element"> <span>
+  	                            <!--<img alt="image" class="img-circle" src="<%= user.avatar_url %>" width="150" height="150" />-->
+                                <img alt="image" class="img-circle" src="/img/profile_small.jpg" width="150" height="150" />
+  	                             </span>
+  	                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+  	                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= yourName %> (<%= user.username %>)</strong>
+  															</span> <span class="text-muted text-xs block"> My Account <b class="caret"></b></span> </span> </a>
+  	                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+  	                            <!--<li><a href="#">Profile</a></li>
+  	                            <li><a href="#">Contacts</a></li>
+  	                            <li><a href="#">Mailbox</a></li>
+  	                            <li class="divider"></li>-->
+                                <li><a href="/">Go to End-User Dashboard</a></li>
+  	                            <li><a href="/logout">Logout</a></li>
+  	                        </ul>
+  	                    </div>
+  	                    <div class="logo-element">
+  	                        SC+
+  	                    </div>
+  	                </li>
+  	                <li class="active">
+  	                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+  	                    <ul class="nav nav-second-level collapse">
+  	                        <li class="active"><a href="#">Configuration</a></li>
+  	                    </ul>
+  	                </li>
+  	            </ul>
+  	        </div>
+  	    </nav>
+
+  	    <div id="page-wrapper" class="gray-bg">
+
+          <div class="row border-bottom">
+  	        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+    	        <div class="navbar-header">
+    	            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+    	            <form role="search" class="navbar-form-custom" action="search_results.html">
+    	            </form>
+    	        </div>
+              <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome, <%= yourName %> </span>
+                </li>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-magic"></i> Go to End-User Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+              </ul>
+  	        </nav>
+          </div>
+
+	        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+              <!--<h2>Sidecar / Node.js - Dashboard</h2>-->
+							<br />
+							<img src="img/sidecar_logo.png" width="20%" height="20%"/>
+            </div>
+	        </div>
+
+	        <div class="wrapper wrapper-content animated fadeInRight">
+
+              <div class="row">
+                  <div class="col-lg-3">
+                      <div class="widget style1">
+                              <div class="row">
+                                  <div class="col-xs-4 text-center">
+                                      <i class="fa fa-trophy fa-5x"></i>
+                                  </div>
+                                  <div class="col-xs-8 text-right">
+                                      <span> Data Transfer </span>
+                                      <h2 class="font-bold"> 434 mb</h2>
+                                  </div>
+                              </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3">
+                      <div class="widget style1 blue-bg">
+                          <div class="row">
+                              <div class="col-xs-4">
+                                  <i class="fa fa-cloud fa-5x"></i>
+                              </div>
+                              <div class="col-xs-8 text-right">
+                                  <span> Connections </span>
+                                  <h2 class="font-bold">2264</h2>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="col-lg-3">
+                      <div class="widget style1 white-bg">
+                          <div class="row">
+                              <div class="col-xs-4">
+                                  <i class="fa fa-user fa-5x"></i>
+                              </div>
+                              <div class="col-xs-8 text-right">
+                                  <span> Users </span>
+                                  <h2 class="font-bold">1984</h2>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div>
+                        <br />
+                        <span>Memory</span>
+                        <small class="pull-right">10/200 GB</small>
+                    </div>
+                    <div class="progress progress-small">
+                        <div style="width: 60%;" class="progress-bar"></div>
+                    </div>
+
+                    <div>
+                        <span>Bandwidth</span>
+                        <small class="pull-right">20 GB</small>
+                    </div>
+                    <div class="progress progress-small">
+                        <div style="width: 50%;" class="progress-bar"></div>
+                    </div>
+                  </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Sidecar Config Parameters <small> </small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" class="form-horizontal"  action="/globalConfig">
+                                <div class="form-group"><label class="col-sm-2 control-label">appKeyId</label>
+                                    <div class="col-sm-10"><input type="text" value="<%= appKeyId %>" name="appKeyId" class="form-control" spellcheck="false"><span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">appSecret</label>
+                                    <div class="col-sm-10"><input type="text" value="<%= appSecret %>" name="appSecret" class="form-control" spellcheck="false"> <span class="help-block m-b-none"> <br /><small>Get your Sidecar Application Keys at <a target="_blank" href='https://console.sidecar.io/applications'>https://console.sidecar.io/applications</a> </small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Support Email</label>
+                                    <div class="col-sm-10"><input type="text" value="<%= supportEmail %>" name="supportEmail" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Your Name</label>
+                                    <div class="col-sm-10"><input type="text" value="<%= yourName %>" name="yourName" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div id="panel1" class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Panel 1 <small> </small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" class="form-horizontal" action="/panel1">
+                                <div class="form-group"><label class="col-sm-4 control-label">Enable Chart<br/><small class="text-navy"></small></label>
+                                  <div class="col-sm-8">
+                                    <% if (panel[0].enable == 'true')  {%>
+                                      <div class="i-checks"><label> <input type="checkbox" checked="" name="enablePanel1"> <i></i> Show </label></div>
+                                    <% } else { %>
+                                      <div class="i-checks"><label> <input type="checkbox" name="enablePanel1"> <i></i> Show </label></div>
+                                    <% } %>
+                                  </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Panel Name</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].panelName %>" name="panelName1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Variable 1</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable1 %>" name="panel1value1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Variable 2</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable2 %>" name="panel1value2" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Graph Type<br/><small class="text-navy"></small></label>
+                                    <div class="col-sm-8">
+                                        <% if (panel[0].graphType == 'line')  {%>
+                                          <div class="i-checks"><label> <input type="radio" checked="" value="line" name="graphType1"> <i></i> Line </label></div>
+                                          <div class="i-checks"><label> <input type="radio" value="bar" name="graphType1"> <i></i> Bar </label></div>
+                                        <% } else { %>
+                                          <div class="i-checks"><label> <input type="radio" value="line" name="graphType1"> <i></i> Line </label></div>
+                                          <div class="i-checks"><label> <input type="radio" checked="" value="bar" name="graphType1"> <i></i> Bar </label></div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-8 col-sm-offset-4">
+                                        <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel2" class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Panel 2 <small> </small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" class="form-horizontal" action="/panel2">
+                                <div class="form-group"><label class="col-sm-4 control-label">Enable Chart<br/><small class="text-navy"></small></label>
+                                  <div class="col-sm-8">
+                                    <% if (panel[1].enable == 'true')  {%>
+                                      <div class="i-checks"><label> <input type="checkbox" name="enablePanel2" checked=""> <i></i> Show </label></div>
+                                    <% } else { %>
+                                      <div class="i-checks"><label> <input type="checkbox" name="enablePanel2"> <i></i> Show </label></div>
+                                    <% } %>
+                                  </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Panel Name</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[1].panelName %>" name="panelName2" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Variable 1</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[1].variable1 %>" name="panel2value1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Variable 2</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[1].variable2 %>" name="panel2value2" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Graph Type<br/><small class="text-navy"></small></label>
+                                  <div class="col-sm-8">
+                                      <% if (panel[1].graphType == 'line')  {%>
+                                        <div class="i-checks"><label> <input type="radio" checked="" value="line" name="graphType2"> <i></i> Line </label></div>
+                                        <div class="i-checks"><label> <input type="radio" value="bar" name="graphType2"> <i></i> Bar </label></div>
+                                      <% } else { %>
+                                        <div class="i-checks"><label> <input type="radio" value="line" name="graphType2"> <i></i> Line </label></div>
+                                        <div class="i-checks"><label> <input type="radio" checked="" value="bar" name="graphType2"> <i></i> Bar </label></div>
+                                      <% } %>
+                                  </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-8 col-sm-offset-4">
+                                        <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+              <div id="panel3" class="col-lg-6">
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-title">
+                          <h5>Panel 3 <small> </small></h5>
+                          <div class="ibox-tools">
+                              <a class="collapse-link">
+                                  <i class="fa fa-chevron-up"></i>
+                              </a>
+
+                          </div>
+                      </div>
+                      <div class="ibox-content">
+                          <form method="post" class="form-horizontal" action="/panel3">
+                              <div class="form-group"><label class="col-sm-4 control-label">Enable Chart<br/><small class="text-navy"></small></label>
+                                <div class="col-sm-8">
+                                  <% if (panel[2].enable == 'true')  {%>
+                                    <div class="i-checks"><label> <input type="checkbox" name="enablePanel3" checked=""> <i></i> Show </label></div>
+                                  <% } else { %>
+                                    <div class="i-checks"><label> <input type="checkbox" name="enablePanel3"> <i></i> Show </label></div>
+                                  <% } %>
+                                </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Panel Name</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[2].panelName %>" name="panelName3" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                  </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Variable 1</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[2].variable1 %>" name="panel3value1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                  </div>
+                              </div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Variable 2</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[2].variable2 %>" name="panel3value2" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                  </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Graph Type<br/><small class="text-navy"></small></label>
+                                <div class="col-sm-8">
+                                    <% if (panel[2].graphType == 'line')  {%>
+                                      <div class="i-checks"><label> <input type="radio" checked="" value="line" name="graphType3"> <i></i> Line </label></div>
+                                      <div class="i-checks"><label> <input type="radio" value="bar" name="graphType3"> <i></i> Bar </label></div>
+                                    <% } else { %>
+                                      <div class="i-checks"><label> <input type="radio" value="line" name="graphType3"> <i></i> Line </label></div>
+                                      <div class="i-checks"><label> <input type="radio" checked="" value="bar" name="graphType3"> <i></i> Bar </label></div>
+                                    <% } %>
+                                </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group">
+                                  <div class="col-sm-8 col-sm-offset-4">
+                                      <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                      <button class="btn btn-primary" type="submit">Save changes</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+
+              <div id="panel4" class="col-lg-6">
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-title">
+                          <h5>Panel 4 <small> </small></h5>
+                          <div class="ibox-tools">
+                              <a class="collapse-link">
+                                  <i class="fa fa-chevron-up"></i>
+                              </a>
+
+                          </div>
+                      </div>
+                      <div class="ibox-content">
+                          <form method="post" class="form-horizontal" action="/panel4">
+                              <div class="form-group"><label class="col-sm-4 control-label">Enable Chart<br/><small class="text-navy"></small></label>
+                                <div class="col-sm-8">
+                                  <% if (panel[3].enable == 'true')  {%>
+                                    <div class="i-checks"><label> <input type="checkbox" name="enablePanel4" checked=""> <i></i> Show </label></div>
+                                  <% } else { %>
+                                    <div class="i-checks"><label> <input type="checkbox" name="enablePanel4"> <i></i> Show </label></div>
+                                  <% } %>
+                                </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Panel Name</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[3].panelName %>" name="panelName4" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                  </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Variable 1</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[3].variable1 %>" name="panel4value1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                  </div>
+                              </div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Variable 2</label>
+                                  <div class="col-sm-8"><input type="text" value="<%= panel[3].variable2 %>" name="panel4value2" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                  </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-4 control-label">Graph Type<br/><small class="text-navy"></small></label>
+                                <div class="col-sm-8">
+                                    <% if (panel[3].graphType == 'line')  {%>
+                                      <div class="i-checks"><label> <input type="radio" checked="" value="line" name="graphType4"> <i></i> Line </label></div>
+                                      <div class="i-checks"><label> <input type="radio" value="bar" name="graphType4"> <i></i> Bar </label></div>
+                                    <% } else { %>
+                                      <div class="i-checks"><label> <input type="radio" value="line" name="graphType4"> <i></i> Line </label></div>
+                                      <div class="i-checks"><label> <input type="radio" checked="" value="bar" name="graphType4"> <i></i> Bar </label></div>
+                                    <% } %>
+                                </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group">
+                                  <div class="col-sm-8 col-sm-offset-4">
+                                      <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                      <button class="btn btn-primary" type="submit">Save changes</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                     <h5>Upload Logo</h5>
+                     <div class="ibox-tools">
+                         <a class="collapse-link">
+                             <i class="fa fa-chevron-up"></i>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="ibox-content">
+                   <form id="my-awesome-dropzone" class="dropzone" action="#">
+                     <div class="dropzone-previews"></div>
+                     <button type="submit" class="btn btn-primary pull-right">Upload</button>
+                   </form>
+                 </div>
+               </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                     <h5>Theme Color</h5>
+                     <div class="ibox-tools">
+                         <a class="collapse-link">
+                             <i class="fa fa-chevron-up"></i>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="ibox-content">
+                   <form method="post" class="form-horizontal">
+                      <br/>
+                      <p>
+                        <div class="i-checks col-sm-offset-1"><label> <input type="radio" checked="" value="light" name="theme"> <i></i> Light </label></div>
+                      </p>
+                      <p>
+                        <div class="i-checks col-sm-offset-1"><label> <input type="radio" value="dark" disabled name="theme"> <i></i> Dark </label></div>
+                      </p>
+                      <div class="hr-line-dashed"></div>
+                      <div class="form-group">
+                          <div class="col-sm-8 col-sm-offset-4">
+                              <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                              <button class="btn btn-primary" type="button">Save changes</button>
+                          </div>
+                      </div>
+                  </form>
+                 </div>
+               </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+	        <div class="footer">
+            <div class="pull-right">
+              <span class="m-t"> <small>Sidecar.io &copy; 2015</small> </span>
+            </div>
+	        </div>
+
+  	    </div>
+  	</div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+    <!-- CodeMirror -->
+    <script src="js/plugins/codemirror/codemirror.js"></script>
+    <script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <!--
+    <script src="js/plugins/pace/pace.min.js"></script>
+    -->
+
+
+    <!-- DROPZONE -->
+    <script src="js/plugins/dropzone/dropzone.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.myAwesomeDropzone = {
+
+                autoProcessQueue: false,
+                uploadMultiple: false,
+                parallelUploads: 1,
+                maxFiles: 1,
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                }
+
+            }
+
+       });
+    </script>
+
+<% } %>
