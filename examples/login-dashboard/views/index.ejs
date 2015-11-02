@@ -30,7 +30,7 @@
             <p class="text-muted text-center"><small>Do not have an account?</small></p>
             <a class="btn btn-sm btn-white btn-block" href="/register">Create an account</a>
           </form>
-          <p class="m-t"> <small>Sidecar.io &copy; 2015</small> </p>
+          <p class="m-t"> <small>Qsense &copy; 2015</small> </p>
           <br />
       </div>
   </div>
@@ -191,9 +191,10 @@
 	                    </ul>
 	                </li>
                   <% if (isAdminUser) { %>
+                    <small>You are logged in as an Admin.</small>
                     <li>
                         <a href="/admin-dashboard">
-                            <i class="fa fa-magic"></i> Go to Admin Panel
+                            <i class="fa fa-magic"></i>Go back to Admin Panel
                         </a>
                     </li>
                   <% } %>
@@ -230,11 +231,11 @@
 	                            </div>
 	                        </div>
 	                        <div class="ibox-content">
-                              <h5><%= panel[0].variable1 %> </h5>
+                              <b>Sensor 1: </b> <%= panel[0].variable1 %>
 	                            <div class="flot-chart">
 	                                <div class="flot-chart-content" id="panel1graph1"></div>
 	                            </div>
-                              <h5><%= panel[0].variable2 %> </h5>
+                              <b>Sensor 2: </b> <%= panel[0].variable2 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel1graph2"></div>
                               </div>
@@ -258,11 +259,11 @@
                               </div>
                           </div>
                           <div class="ibox-content">
-                              <h5><%= panel[1].variable1 %> </h5>
+                              <b>Sensor 1: </b> <%= panel[1].variable1 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel2graph1"></div>
                               </div>
-                              <h5><%= panel[1].variable2 %> </h5>
+                              <b>Sensor 2: </b> <%= panel[1].variable2 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel2graph2"></div>
                               </div>
@@ -286,11 +287,11 @@
                               </div>
                           </div>
                           <div class="ibox-content">
-                              <h5><%= panel[2].variable1 %> </h5>
+                              <b>Sensor 1: </b> <%= panel[2].variable1 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel3graph1"></div>
                               </div>
-                              <h5><%= panel[2].variable2 %> </h5>
+                              <b>Sensor 2: </b> <%= panel[2].variable2 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel3graph2"></div>
                               </div>
@@ -314,11 +315,11 @@
                               </div>
                           </div>
                           <div class="ibox-content">
-                              <h5><%= panel[3].variable1 %> </h5>
+                              <b>Sensor 1: </b> <%= panel[3].variable1 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel4graph1"></div>
                               </div>
-                              <h5><%= panel[3].variable2 %> </h5>
+                              <b>Sensor 2: </b> <%= panel[3].variable2 %>
                               <div class="flot-chart">
                                   <div class="flot-chart-content" id="panel4graph2"></div>
                               </div>
@@ -332,7 +333,7 @@
 
 	        <div class="footer">
 	            <div class="pull-right">
-	                <span class="m-t"> <small>Sidecar.io &copy; 2015</small> </span>
+	                <span class="m-t"> <small>Qsense &copy; 2015</small> </span>
 	            </div>
 	        </div>
 
