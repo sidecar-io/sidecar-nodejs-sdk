@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Qsense, Inc.
+ * Copyright 2015 Sidecar.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,11 @@
  *
  */
 
-var express = require('express');
-var sidecar = require('../lib/api');
-var uuid = require('node-uuid');
-var gpio = require('onoff').Gpio;
+ "use strict";
 
-var app = express();
-
-var led = new gpio(15, 'out');
-
-var toggleLed = 0;
-
-setInterval(function() {
-  toggleLed = toggleLed + 1;
-  if(toggleLed==2) toggleLed=0;
-  led.writeSync(toggleLed);
-},1000);
+var userKeys = exports.userKeys = {
+   // User Access Keys
+   'deviceId': '8f80e970-6b57-11e4-9803-0800200c9a88',
+   'userKeyId': 'OK4CYCKXW4YDXYHWEB1Q',
+   'userSecret': 'bx3TmhkFeu3cOaDrepU5QgZelmmJCnMauHHgSoG1',
+};

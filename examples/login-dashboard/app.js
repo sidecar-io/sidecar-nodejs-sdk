@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Qsense
+ * Copyright 2015 Qsense, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ var supportEmail = configuration.developerKeys.supportEmail;
 var yourName = configuration.developerKeys.yourName;
 var panel = config.dashboard.getPanels();
 
+var logoPath = "img/sidecar_logo.png";
+var defaultSidecarLogo = "img/sidecar_logo.png";
 
 var countEvents = 0;
 var countEventsPrevious = 0;
@@ -311,10 +313,10 @@ app.get('/login', function(req, res){
   invalidAdmin = false;
 
   if(!isUser){
-    res.render('index', { user: req.user, invalidUser: invalidUser, errorMessage: errorMessage });
+    res.render('index', { user: req.user, invalidUser: invalidUser, isAdminUser: isAdminUser, errorMessage: errorMessage });
   }
   else {
-    res.render('index', { user: req.user, invalidUser: invalidUser, panel:panel });
+    res.render('index', { user: req.user, invalidUser: invalidUser, isAdminUser: isAdminUser, panel:panel });
   }
 });
 
@@ -437,7 +439,5 @@ app.get('/logout', function(req, res){
 
 app.listen(80);
 
-
-setInterval(function() {
-
-},1000);
+//setInterval(function() {
+//},1000);
