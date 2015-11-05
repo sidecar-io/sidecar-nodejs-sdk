@@ -300,16 +300,23 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
 
 
     getTotalUserCount(function(err, result) {
-      result = JSON.parse(result.body);
-      totalUsers = result.count;
-      console.log(totalUsers);
+      if(result.statusCode==200){
+        result = JSON.parse(result.body);
+        totalUsers = result.count;
+        console.log(totalUsers);
+      }
+      else {
+        console.log(result.statusCode);
+      }
+
     });
 
     getTotalDeviceCount(function(err, result) {
-      result = JSON.parse(result.body);
-      totalDevices = result.count;
-      console.log(totalDevices);
-
+      if(result.statusCode==200){
+        result = JSON.parse(result.body);
+        totalDevices = result.count;
+        console.log(totalDevices);
+      }
       res.render('admin-dashboard', {
         user: req.user,
         isAdminUser: isAdminUser,
@@ -407,23 +414,12 @@ app.post('/globalConfig', require('connect-ensure-login').ensureLoggedIn(),
             console.log('provisionUser statusCode:' + result.statusCode);
           }
           else {
-            body = JSON.parse(result.body);
-            console.log('provisionUser body:' + body.message);
-            console.log('provisionUser statusCode:' + result.statusCode);
-
-            adminErrorMessage = body.message;
-
-            body = JSON.parse(result.body);
-            console.log('provisionUser body:' + body.message);
-            console.log('provisionUser statusCode:' + result.statusCode);
+            adminErrorMessage = "Error Code: " + result.statusCode;
           }
           return res.redirect('/admin-dashboard');
         });
       }
     });
-
-
-
 
 });
 
