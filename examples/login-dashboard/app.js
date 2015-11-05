@@ -33,8 +33,12 @@ var configuration = require('../../lib/configure');
 // Sidecar Global Config
 var appKeyId = configuration.developerKeys.appKeyId;
 var appSecret = configuration.developerKeys.appSecret;
-var supportEmail = configuration.developerKeys.supportEmail;
+var adminUserKeyId = configuration.developerKeys.adminUserKeyId;
+var adminUserSecret = configuration.developerKeys.adminUserSecret;
+var adminDeviceUUID = configuration.developerKeys.adminUserSecret;
+var adminEmail = configuration.developerKeys.adminEmail;
 var yourName = configuration.developerKeys.yourName;
+var adminPassword = configuration.developerKeys.adminPassword;
 var panel = config.dashboard.getPanels();
 
 var logoPath = "img/sidecar_logo.png";
@@ -50,6 +54,8 @@ var invalidUser = false;
 var invalidRegister = false;
 var invalidAdmin = false;
 var errorMessage;
+var adminErrorMessage = "";
+var adminDeviceMessage = "";
 var errorAdminMessage = "Invalid Credentials";
 var isAdminUser = false;
 var isUser = false;
@@ -61,6 +67,8 @@ var userKeyId;
 var userSecret;
 var deviceId;
 var uuidSession;
+var totalUsers = 0;
+var totalDevices = 0;
 
 function provisionUser(username, password, callback){
   var data = {
@@ -114,8 +122,8 @@ passport.use(new Strategy(
           }
           else {
 
-            console.log('provisionUser body:' + result.body);
-            console.log('provisionUser statusCode:' + result.statusCode);
+            console.log('getUserKeys body:' + result.body);
+            console.log('getUserKeys statusCode:' + result.statusCode);
 
             invalidUser = true;
             invalidRegister = false;
@@ -134,9 +142,9 @@ passport.use(new Strategy(
             body = JSON.parse(result.body);
             userKeyId = body.keyId;
             userSecret = body.secret;
-            console.log('getUserKeys keyId:' + userKeyId);
-            console.log('getUserKeys secret:' + userSecret);
-            console.log('getUserKeys statusCode:' + result.statusCode);
+            console.log('provisionUser keyId:' + userKeyId);
+            console.log('provisionUser secret:' + userSecret);
+            console.log('provisionUser statusCode:' + result.statusCode);
 
             invalidRegister = false;
             invalidUser = false;
@@ -286,18 +294,44 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
   registerFlag = false;
   adminFlag = true;
 
+
   if(isAdminUser) {
-    res.render('admin-dashboard', {
-      user: req.user,
-      isAdminUser: isAdminUser,
-      invalidAdmin: invalidAdmin,
-      errorAdminMessage: errorAdminMessage,
-      appKeyId: appKeyId,
-      appSecret: appSecret,
-      supportEmail: supportEmail,
-      yourName: yourName,
-      panel:panel
+
+
+
+    getTotalUserCount(function(err, result) {
+      result = JSON.parse(result.body);
+      totalUsers = result.count;
+      console.log(totalUsers);
     });
+
+    getTotalDeviceCount(function(err, result) {
+      result = JSON.parse(result.body);
+      totalDevices = result.count;
+      console.log(totalDevices);
+
+      res.render('admin-dashboard', {
+        user: req.user,
+        isAdminUser: isAdminUser,
+        invalidAdmin: invalidAdmin,
+        errorAdminMessage: errorAdminMessage,
+        appKeyId: appKeyId,
+        appSecret: appSecret,
+        adminUserKeyId: adminUserKeyId,
+        adminUserSecret: adminUserSecret,
+        adminDeviceUUID: adminDeviceUUID,
+        adminEmail: adminEmail,
+        adminPassword: adminPassword,
+        adminErrorMessage:adminErrorMessage,
+        adminDeviceMessage: adminDeviceMessage,
+        yourName: yourName,
+        totalUsers: totalUsers,
+        totalDevices: totalDevices,
+        panel:panel
+      });
+    });
+
+
   }
   else { res.render('admin', { user: req.user, invalidAdmin: invalidAdmin, errorAdminMessage:errorAdminMessage }); }
 
@@ -343,9 +377,92 @@ app.post('/globalConfig', require('connect-ensure-login').ensureLoggedIn(),
   function(req, res) {
     appKeyId = req.body.appKeyId;
     appSecret = req.body.appSecret;
-    supportEmail = req.body.supportEmail;
+    //adminUserKeyId = req.body.adminUserKeyId;
+    //adminUserSecret = req.body.adminUserSecret;
+    adminEmail = req.body.adminEmail;
+    adminPassword = req.body.adminPassword;
     yourName = req.body.yourName;
-    res.redirect('/admin-dashboard');
+
+    getUserKeys(adminEmail, adminPassword, function(err, result) {
+      if(result.statusCode == 200)
+      {
+        body = JSON.parse(result.body);
+        adminUserKeyId = body.keyId;
+        adminUserSecret = body.secret;
+        adminErrorMessage = "";
+        console.log('getUserKeys keyId:' + adminUserKeyId);
+        console.log('getUserKeys secret:' + adminUserSecret);
+        console.log('getUserKeys statusCode:' + result.statusCode);
+        return res.redirect('/admin-dashboard');
+      }
+      else {
+        provisionUser(adminEmail, adminPassword, function(err, result) {
+          if(result.statusCode == 200){
+            body = JSON.parse(result.body);
+            adminUserKeyId = body.keyId;
+            adminUserSecret = body.secret;
+            adminErrorMessage = "";
+            console.log('provisionUser keyId:' + adminUserKeyId);
+            console.log('provisionUser secret:' + adminUserSecret);
+            console.log('provisionUser statusCode:' + result.statusCode);
+          }
+          else {
+            body = JSON.parse(result.body);
+            console.log('provisionUser body:' + body.message);
+            console.log('provisionUser statusCode:' + result.statusCode);
+
+            adminErrorMessage = body.message;
+
+            body = JSON.parse(result.body);
+            console.log('provisionUser body:' + body.message);
+            console.log('provisionUser statusCode:' + result.statusCode);
+          }
+          return res.redirect('/admin-dashboard');
+        });
+      }
+    });
+
+
+
+
+});
+
+app.post('/registerAdminDevice', require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res) {
+
+    getUserKeys(adminEmail, adminPassword, function(err, result) {
+      if(result.statusCode == 200)
+      {
+        body = JSON.parse(result.body);
+        adminUserKeyId = body.keyId;
+        adminUserSecret = body.secret;
+        adminErrorMessage = "";
+        console.log('getUserKeys keyId:' + adminUserKeyId);
+        console.log('getUserKeys secret:' + adminUserSecret);
+        console.log('getUserKeys statusCode:' + result.statusCode);
+        adminDeviceMessage = "";
+        var newDevice  = uuid.v1();
+        registerDevice(newDevice, adminUserKeyId, adminUserSecret, function(err, result) {
+          if(result.statusCode == 204)
+          {
+            adminDeviceUUID = newDevice;
+            adminDeviceMessage = "";
+          }
+          else{
+            adminDeviceMessage = "Error code: " +  result.statusCode;
+          }
+          console.log("registerDevice result: " + result.statusCode);
+          return res.redirect('/admin-dashboard');
+        });
+
+      }
+      else {
+        adminDeviceMessage = "Error code: " +  result.statusCode;
+        console.log("registerDevice: " + result.statusCode);
+        return res.redirect('/admin-dashboard');
+      }
+    });
+
 });
 
 app.post('/panel1', require('connect-ensure-login').ensureLoggedIn(),
@@ -439,5 +556,64 @@ app.get('/logout', function(req, res){
 
 app.listen(80);
 
-//setInterval(function() {
-//},1000);
+function getTotalUserCount(callback){
+  sidecar.getUserCountForApplication(function(err, result){
+    callback(null, result);
+  });
+}
+
+function getTotalDeviceCount(callback){
+  sidecar.getDeviceCountForApplication(function(err, result){
+    callback(null, result);
+  });
+}
+
+function getUserDevicesList(callback){
+  sidecar.getDevicesForUser(function(err, result){
+    callback(null, result);
+  });
+}
+
+function registerDevice(uuid, userKeyId, userSecret, callback){
+  var data = {
+    deviceId:uuid
+  };
+  sidecar.registerDevice(data, userKeyId, userSecret, function(err, result){
+    callback(null, result);
+  });
+}
+
+// Debugging
+/*
+var errorCounter = 0 ;
+var okCounter = 0 ;
+setInterval(function() {
+
+  getTotalUserCount(function(err, result) {
+    result = JSON.parse(result.body);
+    totalUsers = result.count;
+    console.log(totalUsers);
+  });
+
+  getTotalDeviceCount(function(err, result) {
+    result = JSON.parse(result.body);
+    totalDevices = result.count;
+    console.log(totalDevices);
+    if(totalDevices == undefined){ errorCounter++; }
+    else{ okCounter++; }
+  });
+
+  console.log("errorCounter: " + errorCounter);
+  console.log("okCounter: " + okCounter);
+
+  getUserDevicesList(function(err, result) {
+    console.log(result.body);
+  });
+
+  var newDevice  = uuid.v1();
+  registerDevice(newDevice, function(err, result) {
+    console.log("registerDevice: " + result.statusCode);
+  });
+
+},1000);
+*/
