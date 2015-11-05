@@ -22,6 +22,11 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var partials = require('express-partials');
 var uuid = require('node-uuid');
+var fs = require('fs');
+
+var multer  = require('multer')
+var upload = multer({ dest: 'public/img/' })
+
 
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
@@ -306,7 +311,7 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
         console.log(totalUsers);
       }
       else {
-        console.log(result.statusCode);
+        console.log("getTotalUserCount error " + result.statusCode);
       }
 
     });
@@ -317,6 +322,10 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
         totalDevices = result.count;
         console.log(totalDevices);
       }
+      else {
+        console.log("getTotalDeviceCount error " + result.statusCode);
+      }
+
       res.render('admin-dashboard', {
         user: req.user,
         isAdminUser: isAdminUser,
@@ -378,6 +387,24 @@ app.post('/admin',
   function(req, res) {
     console.log(req.body.username);
     res.redirect('/admin-dashboard');
+});
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/img')
+  },
+  filename: function (req, file, cb) {
+    cb(null, "sidecar_logo.png")
+  }
+})
+
+var upload = multer({ storage: storage })
+
+app.post('/file-upload', require('connect-ensure-login').ensureLoggedIn(), upload.single('file'),
+  function (req, res) {
+    //console.log(req.files);
+    console.log(req.file);
+    return res.redirect('/admin-dashboard');
 });
 
 app.post('/globalConfig', require('connect-ensure-login').ensureLoggedIn(),

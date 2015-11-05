@@ -4,7 +4,7 @@
    <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
   <body>
   	<div id="wrapper">
-      
+
   	    <nav class="navbar-default navbar-static-side" role="navigation">
   	        <div class="sidebar-collapse">
   	            <ul class="nav metismenu" id="side-menu">
@@ -482,10 +482,8 @@
                      </div>
                  </div>
                  <div class="ibox-content">
-                   <form id="my-awesome-dropzone" class="dropzone" action="#">
-                     <div class="dropzone-previews"></div>
-                     <button type="submit" class="btn btn-primary pull-right">Upload</button>
-                   </form>
+                    <form action="/file-upload" class="dropzone dz-clickable" id="dropzoneArea" enctype="multipart/form-data" method="post">
+                    </form>
                  </div>
                </div>
               </div>
@@ -566,36 +564,5 @@
     <script src="js/plugins/dropzone/dropzone.js"></script>
 
 
-    <script>
-        $(document).ready(function(){
-
-            Dropzone.options.myAwesomeDropzone = {
-
-                autoProcessQueue: false,
-                uploadMultiple: false,
-                parallelUploads: 1,
-                maxFiles: 1,
-
-                // Dropzone settings
-                init: function() {
-                    var myDropzone = this;
-
-                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        myDropzone.processQueue();
-                    });
-                    this.on("sendingmultiple", function() {
-                    });
-                    this.on("successmultiple", function(files, response) {
-                    });
-                    this.on("errormultiple", function(files, response) {
-                    });
-                }
-
-            }
-
-       });
-    </script>
 
 <% } %>
