@@ -7,7 +7,7 @@
         <h1 class="logo-name"><img src="img/sidecar_logo.png" width="80%" height="80%"/></h1>
       </div>
       <div>
-          <h2>Welcome to Sidecar</h2>
+          <h2>Welcome to <%= siteName %></h2>
           <p>Login to your dashboard</p>
           <font color="#eeeeee"><p>node-app</p></font>
           <form class="m-t" role="form" action="/login"  method="post">
@@ -30,7 +30,7 @@
             <p class="text-muted text-center"><small>Do not have an account?</small></p>
             <a class="btn btn-sm btn-white btn-block" href="/register">Create an account</a>
           </form>
-          <p class="m-t"> <small>Qsense, Inc. &copy; 2015</small> </p>
+          <p class="m-t"> <small><%= siteName %> &copy; 2015</small> </p>
           <br />
       </div>
   </div>
@@ -92,7 +92,7 @@
 	        </div>
 	              <ul class="nav navbar-top-links navbar-right">
 	                <li>
-	                    <span class="m-r-sm text-muted welcome-message">Welcome to Sidecar, <%= user.username %> </span>
+	                    <span class="m-r-sm text-muted welcome-message">Welcome to <%= siteName %>, <%= user.username %> </span>
 	                </li>
                   <% if (isAdminUser) { %>
                     <small>You are logged in as an Admin.</small>
@@ -233,11 +233,50 @@
               </div>
               <% } %>
 
+
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Sidecar Config <small> </small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-2 control-label">userKeyId</label>
+                                  <% if (isAdminUser) { %>
+                                    <div class="col-sm-10"><input disabled='' type="text" value="<%= adminUserKeyId %>" name="adminUserKeyId" class="form-control" spellcheck="false"><span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                  <% } else { %>
+                                    <div class="col-sm-10"><input disabled='' type="text" value="<%= userKeyId %>" name="userKeyId" class="form-control" spellcheck="false"><span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                  <% } %>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">userSecret</label>
+                                  <% if (isAdminUser) { %>
+                                    <div class="col-sm-10"><input disabled='' type="text" value="<%= adminUserSecret %>" name="adminUserSecret" class="form-control" spellcheck="false"><span class="help-block m-b-none"> <small> </small></span>
+                                    </div>
+                                  <% } else { %>
+                                    <div class="col-sm-10"><input disabled='' type="text" value="<%= userSecret %>" name="userSecret" class="form-control" spellcheck="false"> <span class="help-block m-b-none"> <br /><small></small></span>
+                                    </div>
+                                  <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
 	        </div>
 
 	        <div class="footer">
 	            <div class="pull-right">
-	                <span class="m-t"> <small>Qsense, Inc. &copy; 2015</small> </span>
+	                <span class="m-t"> <small><%= siteName %> &copy; 2015</small> </span>
 	            </div>
 	        </div>
 

@@ -11,7 +11,7 @@ var panels = [
     },
     {
       id: 2,
-      enable: 'true',
+      enable: 'false',
       panelName: 'Motor Monitor',
       graphType: 'line', // line, bar
       lineEnable: 'true',
@@ -21,7 +21,7 @@ var panels = [
     },
     {
       id: 3,
-      enable: 'true',
+      enable: 'false',
       panelName: 'Runner',
       graphType: 'bar', // line, bar
       lineEnable: 'false',
@@ -31,7 +31,7 @@ var panels = [
     },
     {
       id: 4,
-      enable: 'true',
+      enable: 'false',
       panelName: 'City Stats',
       graphType: 'line', // line, bar
       lineEnable: 'true',

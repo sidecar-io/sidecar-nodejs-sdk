@@ -37,6 +37,7 @@ var sidecar = require('../../lib/api');
 var configuration = require('../../lib/configure');
 // Sidecar Global Config
 var appKeyId = configuration.developerKeys.appKeyId;
+var siteName = "Sidecar";
 var appSecret = configuration.developerKeys.appSecret;
 var adminUserKeyId = configuration.developerKeys.adminUserKeyId;
 var adminUserSecret = configuration.developerKeys.adminUserSecret;
@@ -80,7 +81,7 @@ function provisionUser(username, password, callback){
     username:username,
     password:password
   };
-  sidecar.provisionUser(data, function(err, result){
+  sidecar.provisionUser(data, appKeyId, appSecret, function(err, result){
     callback(null, result);
   });
 }
@@ -90,7 +91,7 @@ function getUserKeys(username, password, callback){
     username: username,
     password: password
   };
-  sidecar.getUserKeys(data, function(err, result){
+  sidecar.getUserKeys(data, appKeyId, appSecret, function(err, result){
     callback(null, result);
   });
 }
@@ -245,10 +246,15 @@ app.get('/', function(req, res){
   invalidAdmin = false;
 
   if(!isUser){
-    res.render('index', { user: req.user, invalidUser: invalidUser, errorMessage: errorMessage });
+    res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, errorMessage: errorMessage });
   }
   else {
-    res.render('index', { user: req.user, invalidUser: invalidUser, isAdminUser:isAdminUser, panel:panel });
+    if(isAdminUser){
+      res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, isAdminUser:isAdminUser, panel:panel, userKeyId:userKeyId, userSecret:userSecret, adminUserKeyId:adminUserKeyId, adminUserSecret:adminUserSecret });
+    }
+    else{
+      res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, isAdminUser:isAdminUser, panel:panel, userKeyId:userKeyId, userSecret:userSecret });
+    }
   }
 
 });
@@ -262,7 +268,7 @@ app.get('/register', function(req, res){
   invalidUser = false;
   invalidAdmin = false;
 
-  res.render('register', { user: req.user, invalidRegister: invalidRegister, errorMessage:errorMessage });
+  res.render('register', { user: req.user, siteName:siteName, invalidRegister: invalidRegister, errorMessage:errorMessage });
 
 });
 
@@ -277,6 +283,7 @@ app.get('/admin', function(req, res){
 
   res.render('admin', {
     user: req.user,
+    siteName:siteName,
     invalidAdmin: invalidAdmin,
     errorAdminMessage: errorAdminMessage
   });
@@ -289,7 +296,7 @@ app.get('/account', require('connect-ensure-login').ensureLoggedIn(), function(r
   registerFlag = false;
   adminFlag = false;
 
-  res.render('account', { user: req.user });
+  res.render('account', { user: req.user, siteName:siteName });
 
 });
 
@@ -302,8 +309,6 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
 
   if(isAdminUser) {
 
-
-
     getTotalUserCount(function(err, result) {
       if(result.statusCode==200){
         result = JSON.parse(result.body);
@@ -314,42 +319,45 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
         console.log("getTotalUserCount error " + result.statusCode);
       }
 
-    });
+      getTotalDeviceCount(function(err, result) {
+        if(result.statusCode==200){
+          result = JSON.parse(result.body);
+          totalDevices = result.count;
+          console.log(totalDevices);
+        }
+        else {
+          console.log("getTotalDeviceCount error " + result.statusCode);
+        }
 
-    getTotalDeviceCount(function(err, result) {
-      if(result.statusCode==200){
-        result = JSON.parse(result.body);
-        totalDevices = result.count;
-        console.log(totalDevices);
-      }
-      else {
-        console.log("getTotalDeviceCount error " + result.statusCode);
-      }
-
-      res.render('admin-dashboard', {
-        user: req.user,
-        isAdminUser: isAdminUser,
-        invalidAdmin: invalidAdmin,
-        errorAdminMessage: errorAdminMessage,
-        appKeyId: appKeyId,
-        appSecret: appSecret,
-        adminUserKeyId: adminUserKeyId,
-        adminUserSecret: adminUserSecret,
-        adminDeviceUUID: adminDeviceUUID,
-        adminEmail: adminEmail,
-        adminPassword: adminPassword,
-        adminErrorMessage:adminErrorMessage,
-        adminDeviceMessage: adminDeviceMessage,
-        yourName: yourName,
-        totalUsers: totalUsers,
-        totalDevices: totalDevices,
-        panel:panel
+        res.render('admin-dashboard', {
+          user: req.user,
+          isAdminUser: isAdminUser,
+          invalidAdmin: invalidAdmin,
+          errorAdminMessage: errorAdminMessage,
+          appKeyId: appKeyId,
+          appSecret: appSecret,
+          adminUserKeyId: adminUserKeyId,
+          adminUserSecret: adminUserSecret,
+          adminDeviceUUID: adminDeviceUUID,
+          adminEmail: adminEmail,
+          adminPassword: adminPassword,
+          adminErrorMessage:adminErrorMessage,
+          adminDeviceMessage: adminDeviceMessage,
+          yourName: yourName,
+          totalUsers: totalUsers,
+          totalDevices: totalDevices,
+          siteName: siteName,
+          panel:panel
+        });
       });
+
     });
+
+
 
 
   }
-  else { res.render('admin', { user: req.user, invalidAdmin: invalidAdmin, errorAdminMessage:errorAdminMessage }); }
+  else { res.render('admin', { user: req.user, siteName:siteName, invalidAdmin: invalidAdmin, errorAdminMessage:errorAdminMessage }); }
 
 });
 
@@ -363,10 +371,10 @@ app.get('/login', function(req, res){
   invalidAdmin = false;
 
   if(!isUser){
-    res.render('index', { user: req.user, invalidUser: invalidUser, isAdminUser: isAdminUser, errorMessage: errorMessage });
+    res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, isAdminUser: isAdminUser, errorMessage: errorMessage });
   }
   else {
-    res.render('index', { user: req.user, invalidUser: invalidUser, isAdminUser: isAdminUser, panel:panel });
+    res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, isAdminUser: isAdminUser, panel:panel });
   }
 });
 
@@ -448,6 +456,13 @@ app.post('/globalConfig', require('connect-ensure-login').ensureLoggedIn(),
       }
     });
 
+});
+
+
+app.post('/siteConfig', require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res) {
+    siteName = req.body.siteName;
+    res.redirect('/admin-dashboard#siteConfig');
 });
 
 app.post('/registerAdminDevice', require('connect-ensure-login').ensureLoggedIn(),
@@ -580,19 +595,19 @@ app.get('/logout', function(req, res){
 app.listen(80);
 
 function getTotalUserCount(callback){
-  sidecar.getUserCountForApplication(function(err, result){
+  sidecar.getUserCountForApplication(appKeyId, appSecret, function(err, result){
     callback(null, result);
   });
 }
 
 function getTotalDeviceCount(callback){
-  sidecar.getDeviceCountForApplication(function(err, result){
+  sidecar.getDeviceCountForApplication(appKeyId, appSecret, function(err, result){
     callback(null, result);
   });
 }
 
 function getUserDevicesList(callback){
-  sidecar.getDevicesForUser(function(err, result){
+  sidecar.getDevicesForUser(function(userKeyId, userSecret,err, result){
     callback(null, result);
   });
 }

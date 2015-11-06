@@ -29,7 +29,7 @@
   	                    </div>
   	                </li>
   	                <li class="active">
-  	                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+  	                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
   	                    <ul class="nav nav-second-level collapse">
   	                        <li class="active"><a href="#">Configuration</a></li>
   	                    </ul>
@@ -92,7 +92,7 @@
                   </div>
                   -->
                   <div class="col-lg-6">
-                      <div class="widget style1 white-bg">
+                      <div class="widget style1 blue-bg">
                           <div class="row">
                               <div class="col-xs-4">
                                   <i class="fa fa-cloud fa-5x"></i>
@@ -107,7 +107,7 @@
 
 
                   <div class="col-lg-6">
-                      <div class="widget style1 white-bg">
+                      <div class="widget style1 lazur-bg">
                           <div class="row">
                               <div class="col-xs-4">
                                   <i class="fa fa-user fa-5x"></i>
@@ -145,7 +145,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Sidecar Config Parameters <small> </small></h5>
+                            <h5>Sidecar Config <small> </small></h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -224,10 +224,10 @@
               </div>
 
               <div class="row">
-                <div id="panel1" class="col-lg-6">
+                <div id="panel1" class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Panel 1 <small> </small></h5>
+                            <h5>Panel Chart Config <small> </small></h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -237,27 +237,28 @@
                         </div>
                         <div class="ibox-content">
                             <form method="post" class="form-horizontal" action="/panel1">
-                                <div class="form-group"><label class="col-sm-4 control-label">Enable Chart<br/><small class="text-navy"></small></label>
+                                <div class="form-group"><label class="col-sm-4 control-label">Enable Panel Chart<br/><small class="text-navy"></small></label>
                                   <div class="col-sm-8">
                                     <% if (panel[0].enable == 'true')  {%>
                                       <div class="i-checks"><label> <input type="checkbox" checked="" name="enablePanel1"> <i></i> Show </label></div>
                                     <% } else { %>
                                       <div class="i-checks"><label> <input type="checkbox" name="enablePanel1"> <i></i> Show </label></div>
                                     <% } %>
+                                    <small>This option allows to display or hide the Panel Chart for all your App Users.</small></span>
                                   </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-4 control-label">Panel Name</label>
-                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].panelName %>" name="panelName1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                <div class="form-group"><label class="col-sm-4 control-label">Panel Chart Name</label>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].panelName %>" name="panelName1" class="form-control"><span class="help-block m-b-none"> <small>Enter a name for the Panel Chart.</small></span>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-4 control-label">Sensor 1</label>
-                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable1 %>" name="panel1value1" class="form-control"><span class="help-block m-b-none"> <small></small></span>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable1 %>" name="panel1value1" class="form-control"><span class="help-block m-b-none"> <small>Enter a name for your sensor variable 1.</small></span>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-4 control-label">Sensor 2</label>
-                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable2 %>" name="panel1value2" class="form-control"> <span class="help-block m-b-none"> <small> </small></span>
+                                    <div class="col-sm-8"><input type="text" value="<%= panel[0].variable2 %>" name="panel1value2" class="form-control"> <span class="help-block m-b-none"> <small>Enter a name for your sensor variable 2.</small></span>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -270,6 +271,7 @@
                                           <div class="i-checks"><label> <input type="radio" value="line" name="graphType1"> <i></i> Line </label></div>
                                           <div class="i-checks"><label> <input type="radio" checked="" value="bar" name="graphType1"> <i></i> Bar </label></div>
                                         <% } %>
+                                        <span class="help-block m-b-none"> <small></small></span>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -283,7 +285,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!--
                 <div id="panel2" class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -467,14 +469,14 @@
                       </div>
                   </div>
               </div>
-
+            -->
             </div>
 
-            <div class="row">
+            <div id="siteConfig"  class="row">
               <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                   <div class="ibox-title">
-                     <h5>Upload Logo</h5>
+                     <h5>Site Config</h5>
                      <div class="ibox-tools">
                          <a class="collapse-link">
                              <i class="fa fa-chevron-up"></i>
@@ -482,8 +484,28 @@
                      </div>
                  </div>
                  <div class="ibox-content">
-                    <form action="/file-upload" class="dropzone dz-clickable" id="dropzoneArea" enctype="multipart/form-data" method="post">
-                    </form>
+                     <form method="post" class="form-horizontal"  action="/siteConfig">
+                         <div class="form-group"><label class="col-sm-2 control-label">Site Name</label>
+                             <div class="col-sm-10"><input type="text" value="<%= siteName %>" name="siteName" class="form-control" spellcheck="false"><span class="help-block m-b-none"> <small>Enter a name for your Site.</small></span>
+                             </div>
+                         </div>
+                         <div class="form-group">
+                             <div class="col-sm-4 col-sm-offset-2">
+                                 <a href='/admin-dashboard'><button class="btn btn-white" type="button">Cancel</button></a>
+                                 <button class="btn btn-primary" type="submit">Save changes</button>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+                 <div class="ibox-content">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Upload Logo</label>
+                  </div>
+                  <br />
+                  <form action="/file-upload" class="dropzone dz-clickable" id="dropzoneArea" enctype="multipart/form-data" method="post">
+                    <button class="btn btn-primary" type="submit">Refresh</button>
+                  </form>
+                  <br />
                  </div>
                </div>
               </div>
@@ -529,7 +551,7 @@
 
 	        <div class="footer">
             <div class="pull-right">
-              <span class="m-t"> <small>Qsense, Inc. &copy; 2015</small> </span>
+              <span class="m-t"> <small><%= siteName %> &copy; 2015</small> </span>
             </div>
 	        </div>
 
