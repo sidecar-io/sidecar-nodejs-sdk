@@ -28,3 +28,5 @@ node_modules
 
 # Config file
 lib/configure.js
+
+lib/configure.js

@@ -1,0 +1,35 @@
+{
+  "name": "sidecar-node-app",
+  "version": "1.0.0",
+  "description": "Sidecar's Node sample app",
+  "main": "app.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidecar-io/sidecar-nodejs-sdk"
+  },
+  "keywords": [
+    "sidecar",
+    "node",
+    "rest",
+    "api",
+    "sdk"
+  ],
+  "author": "Sidecar",
+  "license": [
+    {
+      "type": "Custom",
+      "url": "https://github.com/sidecar-io/sidecar-nodejs-sdk/blob/master/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/sidecar-io/sidecar-nodejs-sdk/issues"
+  },
+  "homepage": "https://github.com/sidecar-io/sidecar-nodejs-sdk",
+  "dependencies": {
+    "node-uuid": "^1.4.3",
+    "request": "^2.65.0"
+  }
+}

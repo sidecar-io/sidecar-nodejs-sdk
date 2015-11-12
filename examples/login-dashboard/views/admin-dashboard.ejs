@@ -1,7 +1,7 @@
 
 <% if (isAdminUser) { %>
   <link href="css/plugins/dropzone/basic.css" rel="stylesheet">
-   <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+  <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
   <body>
   	<div id="wrapper">
 
@@ -219,18 +219,25 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="ibox-content">
+                        <div id='generateDeviceCode' class="ibox-content">
                             <form method="post" class="form-horizontal"  action="/generateDeviceCode">
                                 <div class="form-group"><label class="col-sm-2 control-label">Custom Code</label>
                                     <div class="col-sm-10">
-                                      <button disabled="" class="btn btn-primary" type="submit">Generate Device Code</button><br />
+                                      <button class="btn btn-primary" type="submit">Generate Device Code</button><br />
                                       <small>This action will bake Node.js code for your own Sensor Device based on your Sidecar Access Keys and UUID.
-                                        <br />You can run it from any Node.js compatible hardware either a Raspberry Pi, a BeagleBone, or your laptop.
+                                        <br />You can run it from any Node.js compatible hardware either a Raspberry Pi, a BeagleBone or your laptop.
                                         <br />"<a href="https://nodejs.org/" target="_blank">Node.js</a> is an open-source, cross-platform runtime environment for developing server-side web applications". [<a href="https://en.wikipedia.org/wiki/Node.js" target="_blank">1</a>]
                                       </small></span>
                                     </div>
                                 </div>
                             </form>
+
+                            <div>
+                                <textarea id="nodeJScode">
+                                  <%= nodeJScode %>
+                                </textarea>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -598,6 +605,21 @@
     <!-- DROPZONE -->
     <script src="js/plugins/dropzone/dropzone.js"></script>
 
+    <!-- Create a simple CodeMirror instance -->
+    <link rel="stylesheet" href="js/plugins/codemirror/codemirror.css">
+    <script src="js/plugins/codemirror/codemirror.js"></script>
+    <script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+    <script type="text/javascript">
+      var editor = CodeMirror.fromTextArea(nodeJScode, {
+        lineWrapping: true,
+        lineNumbers: true,
+        matchBrackets: true,
+        styleActiveLine: true,
+        theme:"default",
+        viewportMargin: Infinity
+      });
 
+
+    </script>
 
 <% } %>

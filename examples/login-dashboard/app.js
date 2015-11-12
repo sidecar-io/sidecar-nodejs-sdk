@@ -23,11 +23,9 @@ var methodOverride = require('method-override');
 var partials = require('express-partials');
 var uuid = require('node-uuid');
 var fs = require('fs');
-
-var multer  = require('multer')
-var upload = multer({ dest: 'public/img/' })
-
-
+var path = require("path");
+var multer  = require('multer');
+var upload = multer({ dest: 'public/img/' });
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
@@ -76,6 +74,8 @@ var uuidSession;
 var totalUsers = 0;
 var totalDevices = 0;
 
+var nodeJScode = "Node.js code";
+var generateCode = false;
 function provisionUser(username, password, callback){
   var data = {
     username:username,
@@ -244,9 +244,10 @@ app.get('/', function(req, res){
 
   invalidRegister = false;
   invalidAdmin = false;
-
+  generateCode = false;
   if(!isUser){
     res.render('index', { user: req.user, siteName:siteName, invalidUser: invalidUser, errorMessage: errorMessage });
+
   }
   else {
     if(isAdminUser){
@@ -309,6 +310,8 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
 
   if(isAdminUser) {
 
+    if(!generateCode)nodeJScode='';
+
     getTotalUserCount(function(err, result) {
       if(result.statusCode==200){
         result = JSON.parse(result.body);
@@ -347,6 +350,7 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
           totalUsers: totalUsers,
           totalDevices: totalDevices,
           siteName: siteName,
+          nodeJScode: nodeJScode,
           panel:panel
         });
       });
@@ -499,6 +503,27 @@ app.post('/registerAdminDevice', require('connect-ensure-login').ensureLoggedIn(
         console.log("registerDevice: " + result.statusCode);
         return res.redirect('/admin-dashboard');
       }
+    });
+
+});
+
+app.post('/generateDeviceCode', require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res) {
+
+    var content;
+    console.log(content);
+    fs.readFile(path.join(__dirname,"public/node-firmware","app.js"), 'utf8',function (err,data) {
+      if (err) {
+          console.log(err);
+          process.exit(1);
+      }
+      data = data.replace(/USER_KEY_ID/g, adminUserKeyId);
+      data = data.replace(/USER_SECRET/g, adminUserSecret);
+      data = data.replace(/DEVICE_ID/g, adminDeviceUUID);
+      content = util.format(data);
+      nodeJScode = content;
+      generateCode = true;
+      res.redirect('/admin-dashboard#generateDeviceCode');
     });
 
 });

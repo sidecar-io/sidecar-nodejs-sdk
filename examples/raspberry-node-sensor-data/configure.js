@@ -19,7 +19,7 @@
 
 var userKeys = exports.userKeys = {
    // User Access Keys
-   'deviceId': '8f80e970-6b57-11e4-9803-0800200c9a88',
-   'userKeyId': 'OK4CYCKXW4YDXYHWEB1Q',
-   'userSecret': 'bx3TmhkFeu3cOaDrepU5QgZelmmJCnMauHHgSoG1',
+   'deviceId': 'b22da000-870c-11e5-bc29-13000e20c4f7',
+   'userKeyId': 'YNIAI+WHKTXU9FHW03HI',
+   'userSecret': 'peylbrcvnixbCD0w0sh422vuzQxzObFLMMJZpQWL',
 };
