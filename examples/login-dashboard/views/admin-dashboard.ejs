@@ -223,21 +223,29 @@
                             <form method="post" class="form-horizontal"  action="/generateDeviceCode">
                                 <div class="form-group"><label class="col-sm-2 control-label">Custom Code</label>
                                     <div class="col-sm-10">
-                                      <button class="btn btn-primary" type="submit">Generate Device Code</button><br />
+                                      <button class="btn btn-primary" type="submit">Generate Device Firmware</button><br />
                                       <small>This action will bake Node.js code for your own Sensor Device based on your Sidecar Access Keys and UUID.
                                         <br />You can run it from any Node.js compatible hardware either a Raspberry Pi, a BeagleBone or your laptop.
                                         <br />"<a href="https://nodejs.org/" target="_blank">Node.js</a> is an open-source, cross-platform runtime environment for developing server-side web applications". [<a href="https://en.wikipedia.org/wiki/Node.js" target="_blank">1</a>]
+                                        <br />Node.js is a trademark of Joyent, Inc. and is used with its permission. We are not endorsed by or affiliated with Joyent.
+                                        <br />Raspberry Pi is a trademark of the Raspberry Pi Foundation.
                                       </small></span>
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="get" class="form-horizontal"  action="/downloadDeviceCode">
+                                <div class="form-group"><label class="col-sm-2 control-label">Download Code</label>
+                                    <div class="col-sm-10">
+                                      <button class="btn btn-primary" type="submit">Download Device Firmware</button><br />
+                                    </div>
+                                </div>
 
-                            <div>
                                 <textarea id="nodeJScode">
                                   <%= nodeJScode %>
                                 </textarea>
-                            </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>

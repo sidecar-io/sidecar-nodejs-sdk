@@ -28,6 +28,7 @@ var multer  = require('multer');
 var upload = multer({ dest: 'public/img/' });
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
+var archiver = require('archiver');
 var db = require('./db');
 var config = require('./config');
 
@@ -512,7 +513,7 @@ app.post('/generateDeviceCode', require('connect-ensure-login').ensureLoggedIn()
 
     var content;
     console.log(content);
-    fs.readFile(path.join(__dirname,"public/node-firmware","app.js"), 'utf8',function (err,data) {
+    fs.readFile(path.join(__dirname,"public/node","model_app.js"), 'utf8',function (err,data) {
       if (err) {
           console.log(err);
           process.exit(1);
@@ -523,10 +524,28 @@ app.post('/generateDeviceCode', require('connect-ensure-login').ensureLoggedIn()
       content = util.format(data);
       nodeJScode = content;
       generateCode = true;
+
+      fs.writeFile("public/node/build/app.js", data, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        var archive = archiver.create('zip', {});
+        var output = fs.createWriteStream("public/node/sidecar-node-firmware.zip");
+        archive.pipe(output);
+        archive.directory("public/node/build", "sidecar-node-firmware");
+        archive.finalize();
+      });
+
       res.redirect('/admin-dashboard#generateDeviceCode');
     });
 
 });
+
+app.get('/downloadDeviceCode', require('connect-ensure-login').ensureLoggedIn(), function(req, res){
+  var file = "public/node/sidecar-node-firmware.zip";
+  res.download(file); // Set disposition and send it.
+});
+
 
 app.post('/panel1', require('connect-ensure-login').ensureLoggedIn(),
   function(req, res) {

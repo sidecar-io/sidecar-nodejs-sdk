@@ -18,8 +18,6 @@
 var uuid = require('node-uuid');
 var request = require('request');
 var crypto = require('crypto');
-
-var configuration = require('./configure');
 var hostURL = 'http://api.sidecar.io';
 
 // User access keys
