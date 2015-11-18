@@ -357,10 +357,42 @@ app.get('/admin-dashboard', require('connect-ensure-login').ensureLoggedIn(), fu
       });
 
     });
+  }
+  else { res.render('admin', { user: req.user, siteName:siteName, invalidAdmin: invalidAdmin, errorAdminMessage:errorAdminMessage }); }
+
+});
 
 
 
+app.get('/quickstart-guide', require('connect-ensure-login').ensureLoggedIn(), function(req, res){
 
+  loginFlag = false;
+  registerFlag = false;
+  adminFlag = true;
+
+  if(isAdminUser) {
+
+    res.render('quickstart-guide', {
+      user: req.user,
+      isAdminUser: isAdminUser,
+      invalidAdmin: invalidAdmin,
+      errorAdminMessage: errorAdminMessage,
+      appKeyId: appKeyId,
+      appSecret: appSecret,
+      adminUserKeyId: adminUserKeyId,
+      adminUserSecret: adminUserSecret,
+      adminDeviceUUID: adminDeviceUUID,
+      adminEmail: adminEmail,
+      adminPassword: adminPassword,
+      adminErrorMessage:adminErrorMessage,
+      adminDeviceMessage: adminDeviceMessage,
+      yourName: yourName,
+      totalUsers: totalUsers,
+      totalDevices: totalDevices,
+      siteName: siteName,
+      nodeJScode: nodeJScode,
+      panel:panel
+    });
   }
   else { res.render('admin', { user: req.user, siteName:siteName, invalidAdmin: invalidAdmin, errorAdminMessage:errorAdminMessage }); }
 

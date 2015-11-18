@@ -1,0 +1,248 @@
+
+<% if (isAdminUser) { %>
+  <link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+  <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
+  <body>
+  	<div id="wrapper">
+
+  	    <nav class="navbar-default navbar-static-side" role="navigation">
+  	        <div class="sidebar-collapse">
+  	            <ul class="nav metismenu" id="side-menu">
+  	                <li class="nav-header">
+  	                    <div class="dropdown profile-element"> <span>
+  	                            <!--<img alt="image" class="img-circle" src="<%= user.avatar_url %>" width="150" height="150" />-->
+  	                             </span>
+  	                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+  	                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= yourName %> (<%= user.username %>)</strong>
+  															</span> <span class="text-muted text-xs block"> My Account <b class="caret"></b></span> </span> </a>
+  	                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+  	                            <!--<li><a href="#">Profile</a></li>
+  	                            <li><a href="#">Contacts</a></li>
+  	                            <li><a href="#">Mailbox</a></li>
+  	                            <li class="divider"></li>-->
+                                <li><a href="/">Go to End-User Dashboard</a></li>
+  	                            <li><a href="/logout">Logout</a></li>
+  	                        </ul>
+  	                    </div>
+  	                    <div class="logo-element">
+  	                        SC+
+  	                    </div>
+  	                </li>
+  	                <li class="active">
+  	                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
+  	                    <ul class="nav nav-second-level collapse">
+  	                        <li class="active"><a href="/admin-dashboard">Configuration</a></li>
+                            <li class="active"><a href="/quickstart-guide">Quickstart Guide</a></li>
+  	                    </ul>
+  	                </li>
+  	            </ul>
+  	        </div>
+  	    </nav>
+
+  	    <div id="page-wrapper" class="gray-bg">
+
+          <div class="row border-bottom">
+  	        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+    	        <div class="navbar-header">
+    	            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+    	            <form role="search" class="navbar-form-custom" action="search_results.html">
+    	            </form>
+    	        </div>
+              <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome, <%= yourName %> </span>
+                </li>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-dashboard"></i> Change to End-User Dashboard view
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+              </ul>
+  	        </nav>
+          </div>
+
+	        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+              <!--<h2>Sidecar / Node.js - Dashboard</h2>-->
+							<br />
+							<img src="img/sidecar_logo.png" width="20%" height="20%"/>
+            </div>
+	        </div>
+
+
+        <div class="wrapper wrapper-content  animated fadeInRight article">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="text-center article-title">
+                              <h1>
+                                Quickstart Guide
+                              </h1>
+                            </div>
+                            <h2>
+                              Using Sidecar with Node.js
+                            </h2>
+                            <p>
+                                This Quickstart guide will help you connect your Device Sensor to Sidecar using Node.js in order to send and store data in the Cloud.
+                            </p>
+                            <p>
+                              Sidecar is a data platform purpose built to consume and analyze sensor-based data streams so that you, owners, developers and inventors, of IoT hardware do not need to be concerned with the large infrastructure and development overhead associated with the long-term persistence and meaningful computation of your data. Sidecar makes it easy to connect your hardware to the cloud and manage your data collection.
+                            </p>
+                            <p>
+                              In this Quickstart Guide you will be using Node.js, the <i>open-source, cross-platform runtime environment for developing server-side web applications</i> [<a href="https://en.wikipedia.org/wiki/Node.js" target="_blank">1</a>]. Likewise, we welcome you to check other language implementations in our <a href="https://github.com/sidecar-io" target="_blank">GitHub Open Source repositories</a>.
+                            </p>
+                            <p>
+                              In order to enable your hardware to send data to the cloud, we will be using the Sidecar Device Firmware. This will simplify all the implementation steps required to achieve this while will empower you and your Device Sensor (either a Raspberry Pi, a BeagleBone, a laptop or any embedded computer / Node.js compatible hardware) to push data to Sidecar in less than 8 minutes just by following these simple steps:
+                            </p>
+                            </br>
+                            <p>
+                              <h2>
+                                1) Download your custom-built Sidecar Device Firmware
+                              </h2>
+                            </p>
+                            <p>
+                              The Sidecar Device Firmware, in this instance, is a Node.js app that allows your Device Sensor to send data to Sidecar. This firmware can be generated and downloaded from your <a href="/admin-dashboard#generateDeviceCode" target="_blank">Admin Dashboard</a>. As such, it is a custom-built firmware based on your own Sidecar Access Keys and your latest registered UUID Device. Feel free to unzip this firmware to a preferred location in your Device Sensor.
+                            </p>
+                            </br>
+                            <p>
+                              <h2>
+                                2) Node.js
+                              </h2>
+                            </p>
+                            <p>
+                              Make sure you have installed Node.js in your hardware. From your terminal, run this command:
+                            </p>
+                            <pre>
+                              </ br>
+                              node --version
+                            </pre>
+                            <p>
+                              This will check if you have Node.js installed. Otherwise, you will need to install it. For more information please visit the official <a href="https://nodejs.org/en/download/" target="_blank">Node.js site</a>.
+                            </p>
+                            </br>
+                            <p>
+                              <h2>
+                                3) Install modules for your Sidecar Device Firmware
+                              </h2>
+                            </p>
+                            <p>
+                              In order to run the Sidecar Device Firmware in your hardware, you need to install the required modules. To achieve this, from your terminal and inside the directory where your Sidecar Device Firmware is, simply run the following command:
+                            </p>
+                            <pre>
+                              </ br>
+                              sudo npm install
+                            </pre>
+                          </br>
+                            <p>
+                              <h2>
+                                4) Pushing data to the Sidecar Cloud
+                              </h2>
+                            </p>
+                            <p>
+                              Run the following command to start pushing data:
+                            </p>
+                            <pre>
+                              </ br>
+                              sudo node app.js
+                            </pre>
+                            <p>
+                              And that’s all. By now, your Device Sensor should be sending data to the Sidecar Cloud.
+                            </p>
+                            </br>
+                            <p>
+                              <h2>
+                                Sending my own data sensors
+                              </h2>
+                            </p>
+                            <p>
+                              In the previous firmware/app model, two random variables are sent to the Sidecar Cloud. You can send your own data sensors by modifying the following lines of code in the app.js file and adding your own data from your sensors:
+                            </p>
+                            <pre>
+                              </ br>
+                              //Replace this with your own sensor data 1
+                              sensorData1 = Math.floor((Math.random() * 39) + 25);
+
+                              //Replace this with your own sensor data 2
+                              sensorData2 = Math.floor((Math.random() * 32) + 23);
+                            </pre>
+                            </br>
+                            <p>
+                              This has concluded the Sidecar Node.js Quickstart Guide. Happy clouding.
+                            </p>
+                            <hr>
+                            <span>
+                              <small>
+                                <br />Node.js is a trademark of Joyent, Inc. and is used with its permission. We are not endorsed by or affiliated with Joyent.
+                                <br />Raspberry Pi is a trademark of the Raspberry Pi Foundation.
+                              </small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+	        <div class="footer">
+            <div class="pull-right">
+              <span class="m-t"> <small><%= siteName %> &copy; 2015</small> </span>
+            </div>
+	        </div>
+
+  	    </div>
+  	</div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+    <!-- CodeMirror -->
+    <script src="js/plugins/codemirror/codemirror.js"></script>
+    <script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <!--
+    <script src="js/plugins/pace/pace.min.js"></script>
+    -->
+
+
+    <!-- DROPZONE -->
+    <script src="js/plugins/dropzone/dropzone.js"></script>
+
+    <!-- Create a simple CodeMirror instance -->
+    <link rel="stylesheet" href="js/plugins/codemirror/codemirror.css">
+    <script src="js/plugins/codemirror/codemirror.js"></script>
+    <script src="js/plugins/codemirror/mode/javascript/javascript.js"></script>
+    <script type="text/javascript">
+      var editor = CodeMirror.fromTextArea(nodeJScode, {
+        lineWrapping: true,
+        lineNumbers: true,
+        matchBrackets: true,
+        styleActiveLine: true,
+        theme:"default",
+        viewportMargin: Infinity
+      });
+
+
+    </script>
+
+<% } %>
